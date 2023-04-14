@@ -4,7 +4,7 @@
 ### AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Kernel
+kernel.string=Kernel-Ksu
 do.devicecheck=1
 do.modules=0
 do.systemless=1
@@ -22,7 +22,8 @@ supported.patchlevels=
 ### AnyKernel install
 # begin attributes
 attributes() {
-set_perm_recursive 0 0 750 750 $ramdisk/*;
+set_perm_recursive 0 0 755 644 $ramdisk/*;
+set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
 } # end attributes
 
 
@@ -38,9 +39,10 @@ ramdisk_compression=auto;
 dump_boot; # use split_boot to skip ramdisk unpack, e.g. for devices with init_boot ramdisk
 
 if [ -d $ramdisk/overlay ]; then
-  rm -rf $ramdisk/overlay;
-fi;
+	rm -rf $ramdisk/overlay;
+fi
 
 write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_boot ramdisk
 ## end boot install
+
 
